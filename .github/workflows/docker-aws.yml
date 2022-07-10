@@ -45,6 +45,7 @@ jobs:
           registries: ${{ secrets.AWS_ECR_REGISTRY_IDS }}
 
       - name: Build, tag, and push docker image to Amazon ECR
+        working-directory: 'src/KubernetesApiSample'
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: aws-net-core-api
