@@ -38,5 +38,9 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
           # Container registry server url
           login-server: ${{ secrets.ACR_LOGIN_SERVER }}
-      - run: docker build . -t ${{ secrets.ACR_LOGIN_SERVER }}/k8sdemo:1
+          
+      - name: Docker build & Push
+        run: |
+          docker build . -t ${{ secrets.ACR_LOGIN_SERVER }}/net-core-api-test:${{ github.sha }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/net-core-api-test:${{ github.sha }}
         working-directory: 'src/KubernetesApiSample'
