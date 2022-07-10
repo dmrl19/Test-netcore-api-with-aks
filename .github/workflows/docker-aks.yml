@@ -44,17 +44,3 @@ jobs:
           docker build . -t ${{ secrets.ACR_LOGIN_SERVER }}/net-core-api-test:${{ github.sha }}
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/net-core-api-test:${{ github.sha }}
         working-directory: 'src/KubernetesApiSample'
-
-      - name: Kubernetes Set Context
-        uses: Azure/k8s-set-context@v3.0
-        with:
-          # Azure resource group name
-          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
-          # Azure connected cluster name
-          cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
-          
-      - name: Deploy to Kubernetes cluster
-        uses: Azure/k8s-deploy@v4
-        with:
-           # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
-              images: ${{ secrets.ACR_LOGIN_SERVER }}/net-core-api-test:${{ github.sha }}
